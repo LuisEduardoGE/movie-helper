@@ -1,0 +1,16 @@
+__pycache__/
+.venv/
+node_modules/
+dist/
+.env
+.env.local
+.playwright-mcp/
+*.png
+
+# ai-context memory system: track the Claude tooling, ignore local state
+.claude/.sync-nudged
+.claude/.uncommitted-nudged
+
+# Local-only deploy settings and private ops notes
+.env.deploy
+*.local.md
