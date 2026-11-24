@@ -1,0 +1,9 @@
+# Ruff default rules, with two documented exceptions.
+src = [".", "backend"]
+extend-exclude = [".claude"]  # session tooling hooks, not application code
+
+[lint]
+ignore = [
+  "BLE001",  # intentional catch-alls: the image proxy answers 404 on any upstream failure; deploy.py reports any step error
+  "UP017",   # datetime.UTC needs Python 3.11+; the deploy target's Python version is not pinned
+]

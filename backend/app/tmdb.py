@@ -11,7 +11,6 @@ import httpx
 import truststore
 from pydantic import BaseModel
 
-
 # Use the OS native trust store so corporate proxies / Windows certs work.
 _SSL_CONTEXT = truststore.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
 

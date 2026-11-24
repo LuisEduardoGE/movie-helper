@@ -11,7 +11,6 @@ from pydantic import BaseModel, Field
 from . import tmdb
 from .rooms import get_room_or_404, now_iso
 
-
 SessionState = Literal["picking_genres", "swiping", "revealed"]
 PhaseType = Literal[
     "discovery",

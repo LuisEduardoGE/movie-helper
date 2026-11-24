@@ -29,7 +29,6 @@ import sys
 import textwrap
 from pathlib import Path
 
-
 # ----- Configuration ---------------------------------------------------------
 
 def _deploy_setting(name: str) -> str:
@@ -82,7 +81,7 @@ def ssh_run(remote_cmd: str) -> None:
 def ssh_write_file(remote_path: str, content: str, *, mode: str = "0644") -> None:
     """Pipe content into the remote file, then chmod it."""
     print(f"  ssh> write {remote_path} (mode {mode})")
-    proc = subprocess.run(
+    subprocess.run(
         ["ssh", SERVER, f"cat > {remote_path} && chmod {mode} {remote_path}"],
         input=content.encode("utf-8"),
         check=True,
@@ -255,7 +254,7 @@ def main() -> int:
         print(f"\n[X] {exc}", file=sys.stderr)
         return 1
 
-    print(f"\n[OK] Deployed.")
+    print("\n[OK] Deployed.")
     print(f"   App:    http://{PUBLIC_HOST}:{FRONTEND_PORT}/")
     print(f"   Logs:   ssh {SERVER} 'journalctl -fu {SERVICE_NAME}'")
     print(f"   Nginx:  ssh {SERVER} 'tail -f /var/log/nginx/{NGINX_SITE}.access.log'")

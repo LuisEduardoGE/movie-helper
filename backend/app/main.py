@@ -2,7 +2,8 @@ from __future__ import annotations
 
 from urllib.parse import urlparse
 
-from fastapi import FastAPI
+import httpx
+from fastapi import FastAPI, Response
 from fastapi.middleware.cors import CORSMiddleware
 
 from . import rooms, sessions, tmdb
@@ -61,8 +62,6 @@ async def get_avatar_options() -> dict:
 @app.get("/api/proxy-image")
 async def proxy_image(url: str) -> Response:
     """Proxy allowlisted public image CDNs that block browser hot-linking."""
-    from fastapi import Response
-    import httpx
     # SSRF guard: only https URLs to a fixed set of public image CDNs.
     parsed = urlparse(url)
     if parsed.scheme != "https" or parsed.hostname not in _PROXY_ALLOWED_HOSTS:

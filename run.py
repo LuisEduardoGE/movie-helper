@@ -7,7 +7,6 @@ import sys
 import time
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parent
 BACKEND = ROOT / "backend"
 FRONTEND = ROOT / "frontend"
@@ -46,6 +45,7 @@ def ensure_frontend_dependencies() -> None:
             npm_install_command(),
             cwd=FRONTEND,
             timeout=NPM_INSTALL_TIMEOUT_SECONDS,
+            check=False,
         )
     except subprocess.TimeoutExpired as error:
         raise RuntimeError(
@@ -79,6 +79,7 @@ def stop_process(process: subprocess.Popen) -> None:
             ["taskkill", "/F", "/T", "/PID", str(process.pid)],
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
+            check=False,
         )
         return
     else:
@@ -115,7 +116,7 @@ def main() -> int:
         start_process("frontend", npm_command(), FRONTEND),
     ]
 
-    print("", flush=True)
+    print(flush=True)
     print("Backend:  http://127.0.0.1:8000", flush=True)
     print("Frontend: http://127.0.0.1:5173", flush=True)
     print("Press Ctrl+C to stop both.", flush=True)
